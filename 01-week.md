@@ -24,9 +24,11 @@ Beberapa text editor/IDE yang umum digunakan antara lain:
 - Emacs
 - Vim
 
-Recommended Plugins
+Recommended Settings & Plugins
 - Linter
-- Emmet
+  - [Sublime Text 3](https://github.com/SublimeLinter/SublimeLinter-php)
+  - [VS Code](https://code.visualstudio.com/docs/languages/php#_linting)
+- [Emmet](https://emmet.io/download/)
 - CodeIgniter 3 Snippet
 - Bootstrap 3 Snippet
 - Bootstrap 3 Autocomplete
