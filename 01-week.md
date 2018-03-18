@@ -4,9 +4,9 @@
 
 ### Perangkat Lunak
 
-- [Xampp](https://apachefriends.org) / [Wamp](http://www.wampserver.com/en/) / (PHP + Apache + MySql)
-- Text Editor/IDE
-- Git (Referensi: [Try Github](http://try.github.com))
+* [Xampp](https://apachefriends.org) / [Wamp](http://www.wampserver.com/en/) / (PHP + Apache + MySql)
+* Text Editor/IDE
+* Git (Referensi: [Try Github](http://try.github.com))
 
 ### Editor
 
@@ -16,27 +16,29 @@ Perkuliahan ini tidak mewajibkan anda untuk menggunakan suatu text editor/IDE
 tertentu (gunakan sesuai preferensi anda).
 
 Beberapa text editor/IDE yang umum digunakan antara lain:
-- [Sublime Text 3](https://sublimetext.com/3)
-- [Visual Studio Code](https://code.visualstudio.com)
-- [Atom](https://atom.io)
-- [Notepad++](https://notepad-plus-plus.org)
-- [Webstorm](https://jetbrains.com/webstorm)
-- [Emacs](https://gnu.org/emacs)
-- [Vim](https://vim.org)
+* [Sublime Text 3](https://sublimetext.com/3)
+* [Visual Studio Code](https://code.visualstudio.com)
+* [Atom](https://atom.io)
+* [Notepad++](https://notepad-plus-plus.org)
+* [Webstorm](https://jetbrains.com/webstorm)
+* [Emacs](https://gnu.org/emacs)
+* [Vim](https://vim.org)
 
 Recommended Settings & Plugins
-- Linter
-  - [Sublime Text 3](https://github.com/SublimeLinter/SublimeLinter-php)
-  - [VS Code](https://code.visualstudio.com/docs/languages/php#_linting)
-- [Emmet](https://emmet.io/download/)
-- CodeIgniter 3 Snippet
-- Bootstrap 3 Snippet
-- Bootstrap 3 Autocomplete
+
+* Linter
+  * [Sublime Text 3](https://github.com/SublimeLinter/SublimeLinter-php)
+  * [VS Code](https://code.visualstudio.com/docs/languages/php#_linting)
+* [Emmet](https://emmet.io/download/)
+* CodeIgniter 3 Snippet
+* Bootstrap 3 Snippet
+* Bootstrap 3 Autocomplete
 
 ## Instalasi CodeIgniter
 
+{{'https://www.youtube.com/watch?v=4gIm35pDNSo'|video}}
 Unduh paket CodeIgniter 3 pada halaman [CodeIgniter
-Download](https://codeigniter.com/download).  Pastikan versi yang diunduh adalah
+Download](https://codeigniter.com/download). Pastikan versi yang diunduh adalah
 versi 3.x (versi saat modul ini ditulis adalah 3.1.7).
 
 Panduan lebih lengkap dapat dilihat di [Docs CodeIgniter
@@ -46,9 +48,9 @@ Panduan lebih lengkap dapat dilihat di [Docs CodeIgniter
 
 File-file yang berkaitan dengan konfigurasi CodeIgniter, antara lain:
 
-- `application/config/config.php`
-- `application/config/database.php`
-- `application/config/routes.php`
+* `application/config/config.php`
+* `application/config/database.php`
+* `application/config/routes.php`
 
 ## Instalasi Twitter Bootstrap
 
@@ -82,9 +84,9 @@ bootstrap-3.3.7-dist
 
 ### Percobaan Twitter Bootstrap
 
-- Buatlah direktori dengan nama `hello-bootstrap` pada direktori `htdocs` web server.
-- Tambahkan file `index.php` pada direktori tersebut.
-- Copy file `css`, `js` serta `font` ke dalam direktori, sehingga terbentuk struktur seperti berikut.
+* Buatlah direktori dengan nama `hello-bootstrap` pada direktori `htdocs` web server.
+* Tambahkan file `index.php` pada direktori tersebut.
+* Copy file `css`, `js` serta `font` ke dalam direktori, sehingga terbentuk struktur seperti berikut.
 
 ```
 hello-bootstrap
@@ -94,7 +96,7 @@ hello-bootstrap
 └── js
 ```
 
-- Buatlah struktur dasar html seperti di bawah ini
+* Buatlah struktur dasar html seperti di bawah ini
 
 ```html
 <!DOCTYPE html>
@@ -108,19 +110,19 @@ hello-bootstrap
 </html>
 ```
 
-- Tambahkan css bootstrap pada bagian `head`.
+* Tambahkan css bootstrap pada bagian `head`.
 
 ```html
 <link href="css/bootstrap.min.css" rel="stylesheet">
 ```
 
-- Tambahkan js bootstrap pada bagian akhir `body`.
+* Tambahkan js bootstrap pada bagian akhir `body`.
 
 ```html
 <script src="js/bootstrap.min.js"></script>
 ```
 
-- Tuliskan kode berikut untuk menampilkan isi halaman.
+* Tuliskan kode berikut untuk menampilkan isi halaman.
 
 ```html
 <h1 class="text-center">Hello Bootstrap</h1>
@@ -128,9 +130,9 @@ hello-bootstrap
 
 ## Integrasi Twitter Bootstrap dengan CodeIgniter
 
-- Ekstrak file Twitter Bootstrap yang telah diunduh (`css`, `js`, `font`).
+* Ekstrak file Twitter Bootstrap yang telah diunduh (`css`, `js`, `font`).
 
-- Buatlah
-folder `assets`
-Copykan ketiga folder `css`,
-`js` dan `font` ke dalam folder assets dari framework CodeIgniter 3.
+* Buatlah folder `assets`
+
+* Copykan ketiga folder `css`, `js` dan `font` ke dalam folder assets dari
+ framework CodeIgniter 3.
