@@ -4,7 +4,7 @@
 
 ### Perangkat Lunak
 
-- Xampp / Wamp / (PHP + Apache + MySql)
+- [Xampp](https://apachefriends.org) / [Wamp](http://www.wampserver.com/en/) / (PHP + Apache + MySql)
 - Text Editor/IDE
 - Git (Referensi: [Try Github](http://try.github.com))
 
@@ -16,13 +16,13 @@ Perkuliahan ini tidak mewajibkan anda untuk menggunakan suatu text editor/IDE
 tertentu (gunakan sesuai preferensi anda).
 
 Beberapa text editor/IDE yang umum digunakan antara lain:
-- Sublime Text 3
-- Visual Studio Code
-- Atom
-- Notepad++
-- Webstorm
-- Emacs
-- Vim
+- [Sublime Text 3](https://sublimetext.com/3)
+- [Visual Studio Code](https://code.visualstudio.com)
+- [Atom](https://atom.io)
+- [Notepad++](https://notepad-plus-plus.org)
+- [Webstorm](https://jetbrains.com/webstorm)
+- [Emacs](https://gnu.org/emacs)
+- [Vim](https://vim.org)
 
 Recommended Settings & Plugins
 - Linter
@@ -53,7 +53,32 @@ File-file yang berkaitan dengan konfigurasi CodeIgniter, antara lain:
 ## Instalasi Twitter Bootstrap
 
 Untuk menginstall Twitter Bootstrap, unduh pada halaman [Download Twitter
-Bootstrap](http://getbootstrap.com/getting-started/#download). Kemudian ekstrak file yang telah didownload. Dalam folder tersebut terdapat tiga folder utama, yaitu: `css`, `js`, `font`.
+Bootstrap](http://getbootstrap.com/getting-started/#download). Kemudian ekstrak
+file yang telah didownload, sehingga didapatkan struktur direktori seperti
+berikut:
+
+```
+bootstrap-3.3.7-dist
+├── css
+│   ├── bootstrap-theme.css
+│   ├── bootstrap-theme.css.map
+│   ├── bootstrap-theme.min.css
+│   ├── bootstrap-theme.min.css.map
+│   ├── bootstrap.css
+│   ├── bootstrap.css.map
+│   ├── bootstrap.min.css
+│   └── bootstrap.min.css.map
+├── fonts
+│   ├── glyphicons-halflings-regular.eot
+│   ├── glyphicons-halflings-regular.svg
+│   ├── glyphicons-halflings-regular.ttf
+│   ├── glyphicons-halflings-regular.woff
+│   └── glyphicons-halflings-regular.woff2
+└── js
+    ├── bootstrap.js
+    ├── bootstrap.min.js
+    └── npm.js
+```
 
 ### Percobaan Twitter Bootstrap
 
@@ -62,11 +87,11 @@ Bootstrap](http://getbootstrap.com/getting-started/#download). Kemudian ekstrak 
 - Copy file `css`, `js` serta `font` ke dalam direktori, sehingga terbentuk struktur seperti berikut.
 
 ```
-- hello-bootstrap
-  - css
-  - font
-  - js
-  - index.php
+hello-bootstrap
+├── css
+├── font
+├── index.php
+└── js
 ```
 
 - Buatlah struktur dasar html seperti di bawah ini
@@ -102,3 +127,10 @@ Bootstrap](http://getbootstrap.com/getting-started/#download). Kemudian ekstrak 
 ```
 
 ## Integrasi Twitter Bootstrap dengan CodeIgniter
+
+- Ekstrak file Twitter Bootstrap yang telah diunduh (`css`, `js`, `font`).
+
+- Buatlah
+folder `assets`
+Copykan ketiga folder `css`,
+`js` dan `font` ke dalam folder assets dari framework CodeIgniter 3.
