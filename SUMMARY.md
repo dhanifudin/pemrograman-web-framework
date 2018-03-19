@@ -8,7 +8,7 @@
 * [CRUD dan File Upload](05-week.md)
 * [CRUD dan Form Validation](06-week.md)
 * [CRUD dengan Datagrid](07-week.md)
-* [CRUD dengan Filtering Page Intation](08-week.md)
+* [CRUD dengan Filtering Pagination ](08-week.md)
 * [UTS](09-week.md)
 * [Security Login dan Logout](10-week.md)
 * [User Management](11-week.md)

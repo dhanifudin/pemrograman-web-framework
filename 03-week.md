@@ -1,6 +1,9 @@
-#Pengenalan Model View Controller (Bagian 2)
+# Pengenalan Model View Controller (Bagian 2)
+
 {{'https://www.youtube.com/watch?v=YtjdrSS_dQw'|video}}
-##Pengertian Model
+
+## Pengertian Model
+
 Model merepresentasikan struktur data dari applikasi yang dibuat, biasanya model berisi fungsi untuk mengambil, menyimpan dan merubah informasi pada database.
 
 Pada sebuah framework yang menggunakan design pattern MVC, maka kode program dipisahkan menjadi tiga bagian besar yaitu Model, View dan Controller. Pemisahan bagian kode program ini bertujuan agar proses pengembangan software menjadi lebih mudah dan teratur.
@@ -13,7 +16,7 @@ Untuk menambah pengetahuan mengenai design pattern MVC silahkan merujuk pada lin
 * [Codeigniter Manual](https://www.codeigniter.com/user_guide/overview/mvc.html)
 * [What is MVC](https://softwareengineering.stackexchange.com/questions/127624/what-is-mvc-really)
 
-##Model Pada Codeigniter
+## Model Pada Codeigniter
 
 Untuk membuat model pada framework codeigniter dapat dilakukan dengan aturan sebagai berikut :
 
@@ -41,7 +44,7 @@ class Blog_model extends CI_Model{
 
 * Best practice nya pada file file yang ada di folder models pada codeigniter digunakan **khusus** untuk berurusan dengan data yang dibutuhkan oleh aplikasi, baik data ini berupa data yang berada di database, maupun file.
 
-##Cara Membuat Model
+## Cara Membuat Model
 
 Pada contoh kali ini kita akan membuat sebuah model pada codeigniter yang akan memberikan data dari tabel biodata di database mysql.
 
@@ -72,7 +75,7 @@ class Biodata extends CI_Model{
 
 * Setelah itu class dapat di isi dengan method method yang dibutuhkan untuk mengakses database.
 
-##Cara Load Model
+## Cara Load Model
 
 Untuk dapat digunakan sebuah model pada codeigniter harus di load terlebih dahulu oleh controller yang menggunakan model tersebut, perhatikan bahwa untuk mengikuti konsep MVC yang benar yang dapat mengakses model secara langsung hanyalah sebuah controller, view tidak boleh menginstansiasi model.
 
@@ -83,10 +86,33 @@ Cara melakukan load model pada sebuah controller dapat dilakukan dengan perintah
 
 Kode program pertama adalah untuk me load file model yang langsung ada di folder model, sedangkan kode program kedua untuk model yang ada di dalam folder lain pada folder models.
 
-##Autoload Model
+## Autoload Model
 
-##Koneksi Ke Database
+Autoload model adalah cara untuk me load model secara otomatis tanpa harus me load nya secara manual di masing masing controller, dengan cara ini model yang dimasukkan ke autoload akan selalu ada untuk semua controller yang ada di codeigniter. Walaupun dengan cara ini model dapat diakses oleh semua controller, namun sebaiknya jangan terlalu banyak menaruh model di autoload.
 
-##Jobsheet Praktikum Pengenalan Model Koneksi Model Ke Database
-##Jobsheet Praktikum Pengenalan Model Query Model Dengan Query Biasa
-##Jobsheet Praktikum Pengenalan Model Query Model dengan Query Builder
+Untuk mengkonfigurasi autoload, dapat dilakukan dengan membuka file konfigurasi autoload, file configurasi ini ada di folder `application/config/autoload.php`
+
+```
+/*
+| -------------------------------------------------------------------
+|  Auto-load Models
+| -------------------------------------------------------------------
+| Prototype:
+|
+|	$autoload['model'] = array('first_model', 'second_model');
+|
+| You can also supply an alternative model name to be assigned
+| in the controller:
+|
+|	$autoload['model'] = array('first_model' => 'first');
+*/
+$autoload['model'] = array('nama_model','model_lain','model_baru');
+```
+
+## Koneksi Ke Database
+
+## Jobsheet Praktikum Pengenalan Model Koneksi Model Ke Database
+
+## Jobsheet Praktikum Pengenalan Model Query Model Dengan Query Biasa
+
+## Jobsheet Praktikum Pengenalan Model Query Model dengan Query Builder
