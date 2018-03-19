@@ -274,7 +274,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 ```
 
-## Percobaan Halaman Statis
+## Percobaan Halaman Statis 1
 
 - Update menu navbar dengan url helper, ubah menu beranda dengan `base_url` dan
 halaman **Tentang Saya** dengan `site_url('welcome/about')`.
@@ -299,3 +299,13 @@ $this->load->view('about');
 sehingga menghasilkan halaman tampilan berikut.
 
 ![About](./images/01/about.png)
+
+## Percobaan Halaman Statis 2
+- Update halaman statis view `about.php` dengan isi biodata anda mengenai
+informasi berikut dengan menggunakan komponen Bootstrap:
+  - NIM
+  - Nama
+  - Gender
+  - Hobi
+
+> Kreasikan komponen Twitter Bootstrap sesuai dengan kreatifitas anda!
