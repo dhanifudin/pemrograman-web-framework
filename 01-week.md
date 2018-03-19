@@ -148,7 +148,7 @@ hello-bootstrap
  framework CodeIgniter 3, sehingga struktur direktori kurang lebih seperti
  berikut.
 
- ```
+```
 codeigniter
 ├── application
 │   ├── ...
@@ -164,8 +164,8 @@ codeigniter
 ├── system
 │   ├── ...
 └── user_guide
-    ├── ...
- ```
+   ├── ...
+```
 
 - Buka file `application/config/config.php` untuk mengkonfigurasi url helper.
 Cari bagian `base_url` dan isikan nilai sesuai dengan path anda atau vhost, jika anda
