@@ -4,9 +4,9 @@
 
 ### Perangkat Lunak
 
-* [Xampp](https://apachefriends.org) / [Wamp](http://www.wampserver.com/en/) / (PHP + Apache + MySql)
-* Text Editor/IDE
-* Git (Referensi: [Try Github](http://try.github.com))
+- [Xampp](https://apachefriends.org) / [Wamp](http://www.wampserver.com/en/) / (PHP + Apache + MySql)
+- Text Editor/IDE
+- Git (Referensi: [Try Github](http://try.github.com))
 
 ### Editor
 
@@ -16,30 +16,33 @@ Perkuliahan ini tidak mewajibkan anda untuk menggunakan suatu text editor/IDE
 tertentu (gunakan sesuai preferensi anda).
 
 Beberapa text editor/IDE yang umum digunakan antara lain:
-* [Sublime Text 3](https://sublimetext.com/3)
-* [Visual Studio Code](https://code.visualstudio.com)
-* [Atom](https://atom.io)
-* [Notepad++](https://notepad-plus-plus.org)
-* [Webstorm](https://jetbrains.com/webstorm)
-* [Emacs](https://gnu.org/emacs)
-* [Vim](https://vim.org)
+- [Sublime Text 3](https://sublimetext.com/3)
+- [Visual Studio Code](https://code.visualstudio.com)
+- [Atom](https://atom.io)
+- [Notepad++](https://notepad-plus-plus.org)
+- [Webstorm](https://jetbrains.com/webstorm)
+- [Emacs](https://gnu.org/emacs)
+- [Vim](https://vim.org)
 
 Recommended Settings & Plugins
 
-* Linter
-  * [Sublime Text 3](https://github.com/SublimeLinter/SublimeLinter-php)
-  * [VS Code](https://code.visualstudio.com/docs/languages/php#_linting)
-* [Emmet](https://emmet.io/download/)
-* CodeIgniter 3 Snippet
-* Bootstrap 3 Snippet
-* Bootstrap 3 Autocomplete
+- Linter
+  - [Sublime Text 3](https://github.com/SublimeLinter/SublimeLinter-php)
+  - [VS Code](https://code.visualstudio.com/docs/languages/php#_linting)
+- [Emmet](https://emmet.io/download/)
+- CodeIgniter 3 Snippet
+- Bootstrap 3 Snippet
+- Bootstrap 3 Autocomplete
 
 ## Instalasi CodeIgniter
 
 {{'https://www.youtube.com/watch?v=4gIm35pDNSo'|video}}
 Unduh paket CodeIgniter 3 pada halaman [CodeIgniter
 Download](https://codeigniter.com/download). Pastikan versi yang diunduh adalah
-versi 3.x (versi saat modul ini ditulis adalah 3.1.7).
+versi 3.x (versi saat modul ini ditulis adalah 3.1.7). Jika instalasi sukses,
+anda akan mendapatkan tampilan seperti berikut.
+
+![CodeIgniter](./images/01/codeigniter_welcome.png)
 
 Panduan lebih lengkap dapat dilihat di [Docs CodeIgniter
 3](https://www.codeigniter.com/userguide3/installation/index.html)
@@ -48,9 +51,14 @@ Panduan lebih lengkap dapat dilihat di [Docs CodeIgniter
 
 File-file yang berkaitan dengan konfigurasi CodeIgniter, antara lain:
 
-* `application/config/config.php`
-* `application/config/database.php`
-* `application/config/routes.php`
+- `application/config/config.php`
+  File ini menyimpan konfigurasi utama CodeIgniter serta untuk mendefinisikan
+  helpers. Contohnya: `url helper` yang berisi fungsi bantuan yang umum
+  digunakan `base_url()` serta `site_url`
+- `application/config/database.php`
+  File ini menyimpan konfigurasi yang berkaitan koneksi ke database.
+- `application/config/routes.php`
+  File ini menyimpan konfigurasi route url yang ada dalam aplikasi web.
 
 ## Instalasi Twitter Bootstrap
 
@@ -84,9 +92,9 @@ bootstrap-3.3.7-dist
 
 ### Percobaan Twitter Bootstrap
 
-* Buatlah direktori dengan nama `hello-bootstrap` pada direktori `htdocs` web server.
-* Tambahkan file `index.php` pada direktori tersebut.
-* Copy file `css`, `js` serta `font` ke dalam direktori, sehingga terbentuk struktur seperti berikut.
+- Buatlah direktori dengan nama `hello-bootstrap` pada direktori `htdocs` web server.
+- Tambahkan file `index.php` pada direktori tersebut.
+- Copy file `css`, `js` serta `font` ke dalam direktori, sehingga terbentuk struktur seperti berikut.
 
 ```
 hello-bootstrap
@@ -96,7 +104,7 @@ hello-bootstrap
 └── js
 ```
 
-* Buatlah struktur dasar html seperti di bawah ini
+- Buatlah struktur dasar html seperti di bawah ini
 
 ```html
 <!DOCTYPE html>
@@ -110,13 +118,13 @@ hello-bootstrap
 </html>
 ```
 
-* Tambahkan css bootstrap pada bagian `head`.
+- Tambahkan css bootstrap pada bagian `head`.
 
 ```html
 <link href="css/bootstrap.min.css" rel="stylesheet">
 ```
 
-* Tambahkan js bootstrap dan jquery pada bagian akhir `body`.
+- Tambahkan js bootstrap dan jquery pada bagian akhir `body`.
 
 ```html
 <script src="js/jquery-3.3.1.min.js"></script>
@@ -126,7 +134,7 @@ hello-bootstrap
 > Twitter Bootstrap membutuhkan jquery, download jquery pada link berikut:
 > [Download jquery](https://jquery.com/download/)
 
-* Tuliskan kode berikut untuk menampilkan isi halaman.
+- Tuliskan kode berikut untuk menampilkan isi halaman.
 
 ```html
 <h1 class="text-center">Hello Bootstrap</h1>
@@ -134,11 +142,9 @@ hello-bootstrap
 
 ## Integrasi Twitter Bootstrap dengan CodeIgniter
 
-* Ekstrak file Twitter Bootstrap yang telah diunduh (`css`, `js`, `font`).
-
-* Buatlah folder `assets`
-
-* Copykan ketiga folder `css`, `js` dan `font` ke dalam folder assets dari
+- Ekstrak file Twitter Bootstrap yang telah diunduh (`css`, `js`, `font`).
+- Buatlah folder `assets`
+- Copykan ketiga folder `css`, `js` dan `font` ke dalam folder assets dari
  framework CodeIgniter 3, sehingga struktur direktori kurang lebih seperti
  berikut.
 
@@ -161,8 +167,135 @@ codeigniter
     ├── ...
  ```
 
- * Modifikasi file `view/welcome_message.php`
+- Buka file `application/config/config.php` untuk mengkonfigurasi url helper.
+Cari bagian `base_url` dan isikan nilai sesuai dengan path anda atau vhost, jika anda
+menggunakan virtual host.
 
-![Welcome Message](./images/codeigniter_welcome_message.png)
+```php
+// Pada sistem penulis menggunakan alamat localhost dengan port 8080
+$config['base_url'] = 'http://localhost:8080/';
+```
 
-*
+- Modifikasi file `view/welcome_message.php`
+
+![Welcome CodeIgniter](./images/01/codeigniter_welcome.png)
+
+- Sehingga menjadi tampilan seperti berikut dengan menggunakan komponen dari
+Twitter Bootstrap
+
+![Welcome CodeIgniter + Bootstrap](./images/01/codeigniter_bootstrap_welcome.png)
+
+- Buka file `application/views/welcome_message.php` ubah isi file menjadi
+seperti berikut.
+
+```php
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?><!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+
+</body>
+</html>
+```
+
+- Tambahkan baris berikut ke dalam bagian `head`
+
+```php
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Pemrograman Web Berbasis Framework</title>
+
+<link href="<? echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
+```
+
+- Kemudian tambahkan baris berikut pada bagian sebelum akhir tag `body`
+
+```php
+<script src="<? echo base_url('assets/js/jquery-3.3.1.min.js') ?>"></script>
+<script src="<? echo base_url('assets/js/bootstrap.min.js') ?>"></script>
+```
+
+- Untuk membuat menu pada bagian atas, digunakan komponen `navbar`.
+
+```html
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Web Framework</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Beranda</a></li>
+        <li><a href="#about">Tentang Saya</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Submenu 1</a></li>
+            <li><a href="#">Submenu 2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+```
+
+- Sedangkan untuk tampilan halaman digunakan struktur html berikut.
+
+```html
+<div class="container">
+  <div class="jumbotron">
+    <h1>Hello CodeIgniter + Bootstrap</h1>
+    <p>
+      Consectetur unde eius ducimus esse obcaecati perferendis, ad
+      veritatis quo, nostrum! Dolor consequuntur assumenda quisquam eos
+      repellat Magni voluptates sed neque odio officiis? Laborum aliquid
+      obcaecati eaque sint error Nam.
+    </p>
+    <p>
+      <a class="btn btn-lg btn-primary"
+        href="http://getbootstrap.com/docs/3.3/" role="button">
+        Lihat Dokumentasi Bootstrap 3 &raquo;
+      </a>
+    </p>
+  </div>
+</div>
+```
+
+## Percobaan Halaman Statis
+
+- Update menu navbar dengan url helper, ubah menu beranda dengan `base_url` dan
+halaman **Tentang Saya** dengan `site_url('welcome/about')`.
+
+- Tambahkan fungsi `about()` pada file `/application/controllers/Welcome.php`
+
+```php
+function about() {
+
+}
+```
+
+- Pada fungsi `about()` sisipkan fungsi untuk menampilkan halaman statis yang
+akan dibuat pada step berikutnya.
+
+```php
+$this->load->view('about');
+```
+
+- Buat file baru dengan nama `about.php` pada direktori `/application/views/`.
+- Salin isi halaman pada view `welcome_message.php` ke dalam `about.php`
+sehingga menghasilkan halaman tampilan berikut.
+
+![About](./images/01/about.png)
