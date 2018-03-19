@@ -16,6 +16,7 @@ Perkuliahan ini tidak mewajibkan anda untuk menggunakan suatu text editor/IDE
 tertentu (gunakan sesuai preferensi anda).
 
 Beberapa text editor/IDE yang umum digunakan antara lain:
+
 * [Sublime Text 3](https://sublimetext.com/3)
 * [Visual Studio Code](https://code.visualstudio.com)
 * [Atom](https://atom.io)
@@ -139,10 +140,11 @@ hello-bootstrap
 * Buatlah folder `assets`
 
 * Copykan ketiga folder `css`, `js` dan `font` ke dalam folder assets dari
- framework CodeIgniter 3, sehingga struktur direktori kurang lebih seperti
- berikut.
+  framework CodeIgniter 3, sehingga struktur direktori kurang lebih seperti
+  berikut.
 
- ```
+
+```
 codeigniter
 ├── application
 │   ├── ...
@@ -158,11 +160,9 @@ codeigniter
 ├── system
 │   ├── ...
 └── user_guide
-    ├── ...
- ```
+   ├── ...
+```
 
- * Modifikasi file `view/welcome_message.php`
+* Modifikasi file `view/welcome_message.php`
 
 ![Welcome Message](./images/codeigniter_welcome_message.png)
-
-*
