@@ -116,11 +116,15 @@ hello-bootstrap
 <link href="css/bootstrap.min.css" rel="stylesheet">
 ```
 
-* Tambahkan js bootstrap pada bagian akhir `body`.
+* Tambahkan js bootstrap dan jquery pada bagian akhir `body`.
 
 ```html
+<script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 ```
+
+> Twitter Bootstrap membutuhkan jquery, download jquery pada link berikut:
+> [Download jquery](https://jquery.com/download/)
 
 * Tuliskan kode berikut untuk menampilkan isi halaman.
 
@@ -135,4 +139,30 @@ hello-bootstrap
 * Buatlah folder `assets`
 
 * Copykan ketiga folder `css`, `js` dan `font` ke dalam folder assets dari
- framework CodeIgniter 3.
+ framework CodeIgniter 3, sehingga struktur direktori kurang lebih seperti
+ berikut.
+
+ ```
+codeigniter
+├── application
+│   ├── ...
+├── assets
+│   ├── css
+│   ├── fonts
+│   └── js
+├── composer.json
+├── contributing.md
+├── index.php
+├── license.txt
+├── readme.rst
+├── system
+│   ├── ...
+└── user_guide
+    ├── ...
+ ```
+
+ * Modifikasi file `view/welcome_message.php`
+
+![Welcome Message](./images/codeigniter_welcome_message.png)
+
+*
