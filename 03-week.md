@@ -133,7 +133,7 @@ Contoh konfigurasi autoload :
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array();
+$autoload['libraries'] = array('database');
 ```
 
 Contoh konfigurasi database
@@ -144,9 +144,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => '',
+	'username' => 'root',
 	'password' => '',
-	'database' => '',
+	'database' => 'codeigniter',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -164,7 +164,27 @@ $db['default'] = array(
 );
 ```
 
-## Jobsheet Praktikum Pengenalan Model Koneksi Model Ke Database
+Dengan konfigurasi di atas kita terhubung ke database mysql local, dengan username root tanpa password dan database yang digunakan adalah mysql.
+
+## Jobsheet Praktikum Koneksi Model Ke Database
+
+1.  Buatlah sebuah database di database mysql anda berikan nama database `codeigniter`
+    ```
+    create database codeigniter;
+    ```
+2.  Buatlah sebuah tabel `biodata` didalam database `codeigniter` dengan empat kolom yaitu `id(primary key, int 11)`, `nama(varchar(50))`,`nim(varchar(50))`,`alamat(varchar(50))`
+
+    ```
+    create table biodata(
+        id int(11) UNSIGNED AUTO_INCREMENT PRIMARI KEY,
+        nama varchar(50),
+        nim varchar(50),
+        alamat varchar(50)
+    );
+    ```
+
+3.  Edit file `application\config\database.php`
+4.  Edit file `application\config\autoload.php`
 
 ## Jobsheet Praktikum Pengenalan Model Query Model Dengan Query Biasa
 
