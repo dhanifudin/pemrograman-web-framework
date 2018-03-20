@@ -111,6 +111,59 @@ $autoload['model'] = array('nama_model','model_lain','model_baru');
 
 ## Koneksi Ke Database
 
+Untuk dapat terhubung ke database diperlukan sebuah file konfigurasi, file konfigurasi ini ada di folder `application\config\database` selain itu juga perlu mengaktifkan autoload untuk library database pada file `application\config\autoload`
+
+Contoh konfigurasi autoload :
+
+```php
+/*
+| -------------------------------------------------------------------
+|  Auto-load Libraries
+| -------------------------------------------------------------------
+| These are the classes located in system/libraries/ or your
+| application/libraries/ directory, with the addition of the
+| 'database' library, which is somewhat of a special case.
+|
+| Prototype:
+|
+|	$autoload['libraries'] = array('database', 'email', 'session');
+|
+| You can also supply an alternative library name to be assigned
+| in the controller:
+|
+|	$autoload['libraries'] = array('user_agent' => 'ua');
+*/
+$autoload['libraries'] = array();
+```
+
+Contoh konfigurasi database
+
+```php
+$active_group = 'default';
+$query_builder = TRUE;
+$db['default'] = array(
+	'dsn'	=> '',
+	'hostname' => 'localhost',
+	'username' => '',
+	'password' => '',
+	'database' => '',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+```
+
 ## Jobsheet Praktikum Pengenalan Model Koneksi Model Ke Database
 
 ## Jobsheet Praktikum Pengenalan Model Query Model Dengan Query Biasa
