@@ -186,6 +186,146 @@ Dengan konfigurasi di atas kita terhubung ke database mysql local, dengan userna
 3.  Edit file `application\config\database.php`
 4.  Edit file `application\config\autoload.php`
 
+## Cara Query Ke Database Pada Codeigniter
+
+Terdapat dua cara untuk melakukan query pada codeigniter antara lain :
+
+1.  Melakukan query dengan sintaks mysql biasa pada model
+2.  Melakukan query dengan Active Record
+
+> query dapat dilakukan setelah melakukan load library database pada file `application\config\autoload.php` dan mengkonfigurasi database pada file `application\config\database.php`
+
+### Contoh query pada model dengan query mysql pada model
+
+```php
+	//contoh query dengen return object
+	public function getBiodata(){
+		$query = $this->db->query("Select nama,nim,alamat from biodata")
+		foreach($query->result() as $row){
+			echo $row->nama;
+			echo $row->nim;
+			echo $row->alamat;
+		}
+
+		echo 'Total results : ' + $query->num_rows();
+	}
+
+	//contoh query dengen return object
+	public function getBiodata(){
+		$query = $this->db->query("Select nama,nim,alamat from biodata")
+		foreach($query->result() as $row){
+			echo $row->nama;
+			echo $row->nim;
+			echo $row->alamat;
+		}
+
+		echo 'Total results : ' + $query->num_rows();
+	}
+```
+
+### Contoh query pada model dengan active record
+
+```php
+	//contoh query dengen return object
+	public function getBiodata(){
+		$this->db->select("nama,nim,alamat");
+		$query = $this->db->get("biodata")
+		foreach($query->result() as $row){
+			echo $row->nama;
+			echo $row->nim;
+			echo $row->alamat;
+		}
+
+		echo 'Total results : ' + $query->num_rows();
+	}
+
+	//contoh query dengen return object
+	public function getBiodata(){
+		$this->db->select("nama,nim,alamat");
+		$query = $this->db->get("biodata")
+		foreach($query->result() as $row){
+			echo $row->nama;
+			echo $row->nim;
+			echo $row->alamat;
+		}
+
+		echo 'Total results : ' + $query->num_rows();
+	}
+```
+
+Informasi lebih lengkap mengenai active record dapat anda baca di link berikut ini Dokumentasi [Active Record](https://www.codeigniter.com/userguide2/database/active_record.html#select)
+
 ## Jobsheet Praktikum Pengenalan Model Query Model Dengan Query Biasa
 
+1.  Isilah data pada database tabel biodata yang sebelumnya dibuat.
+2.  Buat lah sebuah controller dengan nama Home pada file Home.php
+
+```php
+<?php
+	defined('BASEPATH') or exit("No Direct Script Allowed");
+
+	class Home extends CI_Controller{
+		public function index(){
+			$this->load->view('home')
+		}
+	}
+```
+
+3.  Buatlah Sebuah Model pada folder `models\biodata.php`
+
+```php
+<?php
+	defined('BASEPATH') or exit("No Direct Script Allowed");
+	Class Biodata extends CI_Models{
+		public function __construct(){
+			parent::__construct();
+		}
+	}
+
+	public function getBiodataQueryArray(){
+		// silahkan di isi sendiri
+	}
+
+	public function getBiodataQueryObject(){
+		// silahkan di isi sendiri
+	}
+```
+
+4.  Update Controller Home untuk memanggil model Biodata
+
+5)  Buatlah sebuah file view `home.php` untuk menampilkan data dari database
+
 ## Jobsheet Praktikum Pengenalan Model Query Model dengan Query Builder
+
+1.  Update model biodata Model pada folder `models\biodata.php` dengan menambahkan dua method baru untuk mengambil data dari database dengan menggunakan active record.
+
+```php
+<?php
+	defined('BASEPATH') or exit("No Direct Script Allowed");
+	Class Biodata extends CI_Models{
+		public function __construct(){
+			parent::__construct();
+		}
+	}
+
+	public function getBiodataQueryArray(){
+		// silahkan di isi sendiri
+	}
+
+	public function getBiodataQueryObject(){
+		// silahkan di isi sendiri
+	}
+
+
+	public function getBiodataActiveRecordArray(){
+		// silahkan di isi sendiri
+	}
+
+	public function getBiodataActiveRecordObject(){
+		// silahkan di isi sendiri
+	}
+```
+
+2.  Update Controller Home untuk memanggil model Biodata
+
+3.  Update tampilan view untuk menampilkan data
