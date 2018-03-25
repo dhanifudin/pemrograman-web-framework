@@ -23,5 +23,5 @@ git commit -a -m "Update docs"
 # push to the origin
 git push origin gh-pages
 
-# checkout to the master branch
-git checkout master
+# checkout to the develop branch
+git checkout develop
