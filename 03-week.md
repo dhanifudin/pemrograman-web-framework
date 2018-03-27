@@ -331,3 +331,22 @@ Informasi lebih lengkap mengenai active record dapat anda baca di link berikut i
 2.  Update Controller Home untuk memanggil model Biodata
 
 3.  Update tampilan view untuk menampilkan data
+
+## Take Home Task
+
+Buatlah sebuah project codeigniter baru, kemudian setting koneksi databasenya dan buatlah aplikasi web yang dapat menampilkan data dari database dengan desain database sebagai berikut :
+
+![Schema Database Pegawai](./images/03/schemapegawai.png)
+
+File dump untuk mysql ada di url berikut ini : [Url Sql Dump](https://goo.gl/bJN9Nj)
+
+Buatlah sebuah halaman pada aplikasi codeigniter yang sebelumnya dibuat, halaman ini harus dapat diakses melalui url :
+`/pegawai/[index]`
+dimana pegawai adalah controller dan /[index] adalah input melalui url yang akan mengatur data yang ditampilkan pada halaman /pegawai input pada [index] merupakan angka (id) pada database pegawai.
+
+Pada halaman `/pegawai/[index]` tampilkanlah data pegawai dengan format sebagai berikut :
+
+1.  Nama Pegawai
+2.  Alamat Pegawai
+3.  Jumlah Pendidikan yang ditempuh oleh pegawai sesuai data yang ada pada tabel pendidikan
+4.  Daftar pendidikan yang ditempuh oleh pegawai di urutkan dari yang paling akhir dalam bentuk tabel dan diberi nomor urut.
