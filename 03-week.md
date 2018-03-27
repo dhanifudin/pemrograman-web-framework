@@ -278,7 +278,7 @@ Informasi lebih lengkap mengenai active record dapat anda baca di link berikut i
 ```php
 <?php
 	defined('BASEPATH') or exit("No Direct Script Allowed");
-	Class Biodata extends CI_Models{
+	class Biodata extends CI_Models{
 		public function __construct(){
 			parent::__construct();
 		}
@@ -304,7 +304,7 @@ Informasi lebih lengkap mengenai active record dapat anda baca di link berikut i
 ```php
 <?php
 	defined('BASEPATH') or exit("No Direct Script Allowed");
-	Class Biodata extends CI_Models{
+	class Biodata extends CI_Models{
 		public function __construct(){
 			parent::__construct();
 		}
