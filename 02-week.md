@@ -1,4 +1,4 @@
-# Pengantar Model View Controller
+# Pengantar Model View Controller (Bagian 1)
 
 Framework CodeIgniter menggunakan paradigma MVC yang merupakan singkatan dari
 Model View Controller.
@@ -20,7 +20,12 @@ Penghubung antara model dan view, biasanya bertugas sebagai pengatur alur logika
 aplikasi.
 
 Tetapi pada pertemuan ini hanya akan ditekankan pada pembahasan `controller`
+serta `routing`.
 saja.
+
+Penjelasan lebih lanjut, anda dapat melihat pada video berikut.
+
+{{'https://www.youtube.com/watch?v=_Un9RthE3vg'|video}}
 
 # Controller
 
@@ -28,7 +33,7 @@ Sebelum membuat `controller` pada `CodeIgniter` ada beberapa ketentuan yang
 perlu diperhatikan, antara lain:
 
 - Nama file dimulai dengan huruf kapital (akan sangat berpengaruh jika anda
-menggunakan sistem operasi yang filesystemnya sifatnya *case sensitive*).
+menggunakan sistem operasi yang filesystemnya bersifat *case sensitive*).
 - Penamaan `class` dimulai dengan huruf kapital.
 - `controller` harus merupakan turunan dari `class` bawaan dari `Codeigniter`,
 yaitu **CI_Controller**.
@@ -95,10 +100,17 @@ class Welcome extends CI_Controller {
 Contoh:
 
 ```
+// route journals ke controller blogs dengan method index
 $route['journals'] = 'blogs'
+// route blog/joe ke controller blogs dengan method users dan parameter 34
 $route['blog/joe'] = 'blogs/users/34'
+// route product dan wildcard number ke controller catalog
+// tanda $1 akan digantikan oleh nilai (:num) yang dimasukkan
 $route['product/(:num)'] = 'catalog/product_lookup_by_id/$1'
 ```
+
+Untuk informasi lebih lanjut, anda dapat melihat dokumentasi [URI Routing
+CodeIgniter](https://www.codeigniter.com/userguide3/general/routing.html)
 
 ## Praktikum Controller 1
 
@@ -118,6 +130,12 @@ $autoload['helper'] = array('url');
 - Buatlah tiga file controller `Home.php`, `About.php` dan `Contact.php`
 (perhatikan penamaan file, diawali dengan huruf kapital).
 
+Langkah lebih lanjut anda dapat mengikuti video berikut.
+
+{{'https://www.youtube.com/watch?v=V7e21tuMfZ0'|video}}
+
 ## Praktikum Controller 2
 
 Pada praktikum ini membahas tentang pengiriman data dari controller ke view.
+
+{{'https://www.youtube.com/watch?v=6GR1FPrt5lY'|video}}
