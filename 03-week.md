@@ -198,9 +198,9 @@ Terdapat dua cara untuk melakukan query pada codeigniter antara lain :
 ### Contoh query pada model dengan query mysql pada model
 
 ```php
-	//contoh query dengen return object
-	public function getBiodata(){
-		$query = $this->db->query("Select nama,nim,alamat from biodata")
+	//contoh query dengan return object
+	public function getBiodataObject(){
+		$query = $this->db->query("Select nama,nim,alamat from biodata");
 		foreach($query->result() as $row){
 			echo $row->nama;
 			echo $row->nim;
@@ -210,13 +210,13 @@ Terdapat dua cara untuk melakukan query pada codeigniter antara lain :
 		echo 'Total results : ' + $query->num_rows();
 	}
 
-	//contoh query dengen return object
-	public function getBiodata(){
-		$query = $this->db->query("Select nama,nim,alamat from biodata")
-		foreach($query->result() as $row){
-			echo $row->nama;
-			echo $row->nim;
-			echo $row->alamat;
+	//contoh query dengan return array
+	public function getBiodataArray(){
+		$query = $this->db->query("Select nama,nim,alamat from biodata");
+		foreach($query->result_array() as $row){
+			echo $row['nama'];
+			echo $row['nim'];
+			echo $row['alamat'];
 		}
 
 		echo 'Total results : ' + $query->num_rows();
@@ -226,8 +226,8 @@ Terdapat dua cara untuk melakukan query pada codeigniter antara lain :
 ### Contoh query pada model dengan active record
 
 ```php
-	//contoh query dengen return object
-	public function getBiodata(){
+	//contoh active record dengan return object
+	public function getBiodataActiveRecordObject(){
 		$this->db->select("nama,nim,alamat");
 		$query = $this->db->get("biodata")
 		foreach($query->result() as $row){
@@ -240,13 +240,13 @@ Terdapat dua cara untuk melakukan query pada codeigniter antara lain :
 	}
 
 	//contoh query dengen return object
-	public function getBiodata(){
+	public function getBiodataActiveRecordArray(){
 		$this->db->select("nama,nim,alamat");
 		$query = $this->db->get("biodata")
-		foreach($query->result() as $row){
-			echo $row->nama;
-			echo $row->nim;
-			echo $row->alamat;
+		foreach($query->result_array() as $row){
+			echo $row['nama'];
+			echo $row['nim'];
+			echo $row['alamat'];
 		}
 
 		echo 'Total results : ' + $query->num_rows();
@@ -254,6 +254,8 @@ Terdapat dua cara untuk melakukan query pada codeigniter antara lain :
 ```
 
 Informasi lebih lengkap mengenai active record dapat anda baca di link berikut ini Dokumentasi [Active Record](https://www.codeigniter.com/userguide2/database/active_record.html#select)
+
+> Kedua cara untuk mengquery di atas baik dengan query manual maupun menggunakan active record sama sama baiknya dan silahkan digunakan sesuai dengan kebutuhan anda ketika membuat program
 
 ## Jobsheet Praktikum Pengenalan Model Query Model Dengan Query Biasa
 
