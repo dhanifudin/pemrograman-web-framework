@@ -1,3 +1,3 @@
 # Quiz 1
 
-Kontak Dosen masing-masing.
+Kontak Dosen Pengampu masing-masing.

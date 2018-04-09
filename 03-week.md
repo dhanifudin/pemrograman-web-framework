@@ -22,25 +22,25 @@ Untuk membuat model pada framework codeigniter dapat dilakukan dengan aturan seb
 
 * Semua file model di codeigniter secara default disimpan di folder models:
 
-```
-codeigniter
-├── application
-│   ├── controllers
-│   ├── models
-│   ├── views
-├── assets
-│   ├── css
-│   ├── fonts
-│   └── js
-```
+    ```
+    codeigniter
+    ├── application
+    │   ├── controllers
+    │   ├── models
+    │   ├── views
+    ├── assets
+    │   ├── css
+    │   ├── fonts
+    │   └── js
+    ```
 
 * Semua file models dalam codeigniter merupakan sebuah **class** yang diturunkan dari class CI_Model
 
-```
-class Blog_model extends CI_Model{
+    ```
+    class Blog_model extends CI_Model{
 
-}
-```
+    }
+    ```
 
 * Best practice nya pada file file yang ada di folder models pada codeigniter digunakan **khusus** untuk berurusan dengan data yang dibutuhkan oleh aplikasi, baik data ini berupa data yang berada di database, maupun file.
 
@@ -50,28 +50,28 @@ Pada contoh kali ini kita akan membuat sebuah model pada codeigniter yang akan m
 
 * Buat file baru dengan nama Biodata.php pada folder models (Perhatikan dengan seksama nama file (huruf capital), dan lokasi penyimpanan file di folder models)
 
-```
-codeigniter
-├── application
-│   ├── controllers
-│   ├── models
-|   |   └── Biodata.php
-│   ├── views
-├── assets
-│   ├── css
-│   ├── fonts
-│   └── js
-```
+    ```
+    codeigniter
+    ├── application
+    │   ├── controllers
+    │   ├── models
+    |   |   └── Biodata.php
+    │   ├── views
+    ├── assets
+    │   ├── css
+    │   ├── fonts
+    │   └── js
+    ```
 
 * Isilah di dalam class Biodata.php kode program yang membuat class Biodata mengekstend CI_Models, perhatikan ada function `__construct()` yang merupakan bawan default untuk konstruktor pada file Model di Codeigniter.
 
-```
-class Biodata extends CI_Model{
+    ```
+    class Biodata extends CI_Model{
     function __construct(){
-        parent::__construct()
+    parent::__construct()
     }
-}
-```
+    }
+    ```
 
 * Setelah itu class dapat di isi dengan method method yang dibutuhkan untuk mengakses database.
 
@@ -84,7 +84,7 @@ Cara melakukan load model pada sebuah controller dapat dilakukan dengan perintah
 * `$this->load->model('nama_model')`
 * `$this->load->model('folder/nama_file')`
 
-Kode program pertama adalah untuk me load file model yang langsung ada di folder model, sedangkan kode program kedua untuk model yang ada di dalam folder lain pada folder models.
+    Kode program pertama adalah untuk me load file model yang langsung ada di folder model, sedangkan kode program kedua untuk model yang ada di dalam folder lain pada folder models.
 
 ## Autoload Model
 
@@ -142,25 +142,25 @@ Contoh konfigurasi database
 $active_group = 'default';
 $query_builder = TRUE;
 $db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'codeigniter',
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
+'dsn'	=> '',
+'hostname' => 'localhost',
+'username' => 'root',
+'password' => '',
+'database' => 'codeigniter',
+'dbdriver' => 'mysqli',
+'dbprefix' => '',
+'pconnect' => FALSE,
+'db_debug' => (ENVIRONMENT !== 'production'),
+'cache_on' => FALSE,
+'cachedir' => '',
+'char_set' => 'utf8',
+'dbcollat' => 'utf8_general_ci',
+'swap_pre' => '',
+'encrypt' => FALSE,
+'compress' => FALSE,
+'stricton' => FALSE,
+'failover' => array(),
+'save_queries' => TRUE
 );
 ```
 
@@ -169,19 +169,19 @@ Dengan konfigurasi di atas kita terhubung ke database mysql local, dengan userna
 ## Jobsheet Praktikum Koneksi Model Ke Database
 
 1.  Buatlah sebuah database di database mysql anda berikan nama database `codeigniter`
-    ```
-    create database codeigniter;
-    ```
+```
+create database codeigniter;
+```
 2.  Buatlah sebuah tabel `biodata` didalam database `codeigniter` dengan empat kolom yaitu `id(primary key, int 11)`, `nama(varchar(50))`,`nim(varchar(50))`,`alamat(varchar(50))`
 
-    ```
-    create table biodata(
-        id int(11) UNSIGNED AUTO_INCREMENT PRIMARI KEY,
-        nama varchar(50),
-        nim varchar(50),
-        alamat varchar(50)
-    );
-    ```
+```
+create table biodata(
+id int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+nama varchar(50),
+nim varchar(50),
+alamat varchar(50)
+);
+```
 
 3.  Edit file `application\config\database.php`
 4.  Edit file `application\config\autoload.php`
@@ -198,59 +198,59 @@ Terdapat dua cara untuk melakukan query pada codeigniter antara lain :
 ### Contoh query pada model dengan query mysql pada model
 
 ```php
-	//contoh query dengan return object
-	public function getBiodataObject(){
-		$query = $this->db->query("Select nama,nim,alamat from biodata");
-		foreach($query->result() as $row){
-			echo $row->nama;
-			echo $row->nim;
-			echo $row->alamat;
-		}
+//contoh query dengan return object
+public function getBiodataObject(){
+$query = $this->db->query("Select nama,nim,alamat from biodata");
+foreach($query->result() as $row){
+echo $row->nama;
+echo $row->nim;
+echo $row->alamat;
+}
 
-		echo 'Total results : ' + $query->num_rows();
-	}
+echo 'Total results : ' + $query->num_rows();
+}
 
-	//contoh query dengan return array
-	public function getBiodataArray(){
-		$query = $this->db->query("Select nama,nim,alamat from biodata");
-		foreach($query->result_array() as $row){
-			echo $row['nama'];
-			echo $row['nim'];
-			echo $row['alamat'];
-		}
+//contoh query dengan return array
+public function getBiodataArray(){
+$query = $this->db->query("Select nama,nim,alamat from biodata");
+foreach($query->result_array() as $row){
+echo $row['nama'];
+echo $row['nim'];
+echo $row['alamat'];
+}
 
-		echo 'Total results : ' + $query->num_rows();
-	}
+echo 'Total results : ' + $query->num_rows();
+}
 ```
 
 ### Contoh query pada model dengan active record
 
 ```php
-	//contoh active record dengan return object
-	public function getBiodataActiveRecordObject(){
-		$this->db->select("nama,nim,alamat");
-		$query = $this->db->get("biodata")
-		foreach($query->result() as $row){
-			echo $row->nama;
-			echo $row->nim;
-			echo $row->alamat;
-		}
+//contoh active record dengan return object
+public function getBiodataActiveRecordObject(){
+$this->db->select("nama,nim,alamat");
+$query = $this->db->get("biodata")
+foreach($query->result() as $row){
+echo $row->nama;
+echo $row->nim;
+echo $row->alamat;
+}
 
-		echo 'Total results : ' + $query->num_rows();
-	}
+echo 'Total results : ' + $query->num_rows();
+}
 
-	//contoh query dengen return object
-	public function getBiodataActiveRecordArray(){
-		$this->db->select("nama,nim,alamat");
-		$query = $this->db->get("biodata")
-		foreach($query->result_array() as $row){
-			echo $row['nama'];
-			echo $row['nim'];
-			echo $row['alamat'];
-		}
+//contoh query dengen return object
+public function getBiodataActiveRecordArray(){
+$this->db->select("nama,nim,alamat");
+$query = $this->db->get("biodata")
+foreach($query->result_array() as $row){
+echo $row['nama'];
+echo $row['nim'];
+echo $row['alamat'];
+}
 
-		echo 'Total results : ' + $query->num_rows();
-	}
+echo 'Total results : ' + $query->num_rows();
+}
 ```
 
 Informasi lebih lengkap mengenai active record dapat anda baca di link berikut ini Dokumentasi [Active Record](https://www.codeigniter.com/userguide2/database/active_record.html#select)
@@ -264,33 +264,33 @@ Informasi lebih lengkap mengenai active record dapat anda baca di link berikut i
 
 ```php
 <?php
-	defined('BASEPATH') or exit("No Direct Script Allowed");
+defined('BASEPATH') or exit("No Direct Script Allowed");
 
-	class Home extends CI_Controller{
-		public function index(){
-			$this->load->view('home')
-		}
-	}
+class Home extends CI_Controller{
+public function index(){
+$this->load->view('home')
+}
+}
 ```
 
 3.  Buatlah Sebuah Model pada folder `models\biodata.php`
 
 ```php
 <?php
-	defined('BASEPATH') or exit("No Direct Script Allowed");
-	class Biodata extends CI_Models{
-		public function __construct(){
-			parent::__construct();
-		}
-	}
+defined('BASEPATH') or exit("No Direct Script Allowed");
+class Biodata extends CI_Models{
+public function __construct(){
+parent::__construct();
+}
+}
 
-	public function getBiodataQueryArray(){
-		// silahkan di isi sendiri
-	}
+public function getBiodataQueryArray(){
+// silahkan di isi sendiri
+}
 
-	public function getBiodataQueryObject(){
-		// silahkan di isi sendiri
-	}
+public function getBiodataQueryObject(){
+// silahkan di isi sendiri
+}
 ```
 
 4.  Update Controller Home untuk memanggil model Biodata
@@ -303,29 +303,30 @@ Informasi lebih lengkap mengenai active record dapat anda baca di link berikut i
 
 ```php
 <?php
-	defined('BASEPATH') or exit("No Direct Script Allowed");
-	class Biodata extends CI_Models{
-		public function __construct(){
-			parent::__construct();
-		}
-	}
+defined('BASEPATH') or exit("No Direct Script Allowed");
+class Biodata extends CI_Models {
+  public function __construct() {
+    parent::__construct();
+    }
+  }
 
-	public function getBiodataQueryArray(){
-		// silahkan di isi sendiri
-	}
+  public function getBiodataQueryArray() {
+    // silahkan di isi sendiri
+  }
 
-	public function getBiodataQueryObject(){
-		// silahkan di isi sendiri
-	}
+  public function getBiodataQueryObject() {
+    // silahkan di isi sendiri
+  }
 
 
-	public function getBiodataActiveRecordArray(){
-		// silahkan di isi sendiri
-	}
+  public function getBiodataActiveRecordArray() {
+    // silahkan di isi sendiri
+  }
 
-	public function getBiodataActiveRecordObject(){
-		// silahkan di isi sendiri
-	}
+  public function getBiodataActiveRecordObject() {
+    // silahkan di isi sendiri
+  }
+}
 ```
 
 2.  Update Controller Home untuk memanggil model Biodata
