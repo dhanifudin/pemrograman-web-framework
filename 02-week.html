@@ -163,7 +163,7 @@
                 <a href="05-week.html">
             
                     
-                    CRUD dan File Upload
+                    CRUD dan Form Validation
             
                 </a>
             
@@ -176,7 +176,7 @@
                 <a href="06-week.html">
             
                     
-                    CRUD dan Form Validation
+                    CRUD dan File Upload
             
                 </a>
             
@@ -202,7 +202,7 @@
                 <a href="08-week.html">
             
                     
-                    CRUD dengan Filtering Page Intation
+                    CRUD dengan Filtering Pagination 
             
                 </a>
             
@@ -385,13 +385,15 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="pengantar-model-view-controller">Pengantar Model View Controller</h1>
-<p>Model View Controller atau biasanya disingkat MVC.</p>
+                                <h1 id="pengantar-model-view-controller-bagian-1">Pengantar Model View Controller (Bagian 1)</h1>
+<p>Framework CodeIgniter menggunakan paradigma MVC yang merupakan singkatan dari
+Model View Controller.</p>
 <ul>
 <li>Model</li>
 </ul>
 <p>Model merepresentasikan struktur data dari aplikasi yang dibuat. Biasanya model
-berisi fungsi untuk <strong>mengambil</strong>, <strong>menyimpan</strong> dan <strong>merubah</strong> informasi pada database.</p>
+berisi fungsi untuk <strong>mengambil</strong>, <strong>menyimpan</strong> dan <strong>merubah</strong> informasi pada
+database.</p>
 <ul>
 <li>View</li>
 </ul>
@@ -402,6 +404,100 @@ dari halaman seperti header/footer.</p>
 </ul>
 <p>Penghubung antara model dan view, biasanya bertugas sebagai pengatur alur logika
 aplikasi.</p>
+<p>Tetapi pada pertemuan ini hanya akan ditekankan pada pembahasan <code>controller</code>
+serta <code>routing</code>.
+saja.</p>
+<p>Penjelasan lebih lanjut, anda dapat melihat pada video berikut.</p>
+<div class="noembed-wrapper" data-url="//noembed.com/embed?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D_Un9RthE3vg">https://www.youtube.com/watch?v=_Un9RthE3vg</div>
+
+<h1 id="controller">Controller</h1>
+<p>Sebelum membuat <code>controller</code> pada <code>CodeIgniter</code> ada beberapa ketentuan yang
+perlu diperhatikan, antara lain:</p>
+<ul>
+<li>Nama file dimulai dengan huruf kapital (akan sangat berpengaruh jika anda
+menggunakan sistem operasi yang filesystemnya bersifat <em>case sensitive</em>).</li>
+<li>Penamaan <code>class</code> dimulai dengan huruf kapital.</li>
+<li><code>controller</code> harus merupakan turunan dari <code>class</code> bawaan dari <code>Codeigniter</code>,
+yaitu <strong>CI_Controller</strong>.</li>
+</ul>
+<h2 id="pretty-url">Pretty URL</h2>
+<p>Pada pertemuan 1, jika anda perhatikan link hasil dari helper <code>site_url</code> akan
+selalu diakhiri dengan <code>index.php</code>. Untuk merubah url sehingga didapatkan url
+tanpa akhiran <code>index.php</code> dapat digunakan <code>pretty url</code> dengan konfigurasi
+<code>.htaccess</code> (file <code>.htaccess</code> hanya tersedia di web server Apache). Contoh:</p>
+<pre><code>// Tanpa pretty url
+http://localhost/folder/index.php/controller/method/param
+</code></pre><pre><code>// Dengan pretty url
+http://localhost/folder/controller/method/param
+</code></pre><h2 id="controller-dengan-parameter">Controller dengan Parameter</h2>
+<p>Controller dapat menerima informasi dari <code>view</code> atau <code>request</code> melalui
+parameter. Untuk pembuatan tersebut, cukup ditambahkan deklarasi parameter di
+dalam tanda <code>()</code> pada fungsi. Anda dapat menambahkan lebih dari satu jumlah
+parameter (sesuaikan dengan kebutuhan). Contoh:</p>
+<pre><code class="lang-php"><span class="hljs-meta">&lt;?php</span>
+defined(<span class="hljs-string">&apos;BASEPATH&apos;</span>) <span class="hljs-keyword">OR</span> <span class="hljs-keyword">exit</span>(<span class="hljs-string">&apos;No direct script access allowed&apos;</span>);
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Welcome</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CI_Controller</span> </span>{
+
+  <span class="hljs-comment">/**
+   * Index Page for this controller.
+   *
+   * Maps to the following URL
+   *         http://example.com/index.php/welcome
+   *    - or -
+   *         http://example.com/index.php/welcome/index
+   *    - or -
+   * Since this controller is set as the default controller in
+   * config/routes.php, it&apos;s displayed at http://example.com/
+   *
+   * So any other public methods not prefixed with an underscore will
+   * map to /index.php/welcome/&lt;method_name&gt;
+   * <span class="hljs-doctag">@see</span> https://codeigniter.com/user_guide/general/urls.html
+   */</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">()</span>
+  </span>{
+    $this-&gt;load-&gt;view(<span class="hljs-string">&apos;welcome_message&apos;</span>);
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">about</span><span class="hljs-params">()</span>
+  </span>{
+    $this-&gt;load-&gt;view(<span class="hljs-string">&apos;about&apos;</span>);
+  }
+}
+</code></pre>
+<h2 id="controller-dengan-custom-routing">Controller dengan Custom Routing</h2>
+<p>Contoh:</p>
+<pre><code>// route journals ke controller blogs dengan method index
+$route[&apos;journals&apos;] = &apos;blogs&apos;
+// route blog/joe ke controller blogs dengan method users dan parameter 34
+$route[&apos;blog/joe&apos;] = &apos;blogs/users/34&apos;
+// route product dan wildcard number ke controller catalog
+// tanda $1 akan digantikan oleh nilai (:num) yang dimasukkan
+$route[&apos;product/(:num)&apos;] = &apos;catalog/product_lookup_by_id/$1&apos;
+</code></pre><p>Untuk informasi lebih lanjut, anda dapat melihat dokumentasi <a href="https://www.codeigniter.com/userguide3/general/routing.html" target="_blank">URI Routing
+CodeIgniter</a></p>
+<h2 id="praktikum-controller-1">Praktikum Controller 1</h2>
+<p>Pada praktikum ini berisi tentang pembuatan halaman static pada CodeIgniter. Ada
+tiga buah halaman static yang akan dibuat, yaitu: <strong>home</strong>, <strong>about</strong> dan
+<strong>contact</strong>.</p>
+<ul>
+<li>Tambahkan <code>url</code> helper pada <code>autoload</code> yang ada di file
+<code>application/config/autoload.php</code>.</li>
+</ul>
+<pre><code class="lang-php">$autoload[<span class="hljs-string">&apos;helper&apos;</span>] = <span class="hljs-keyword">array</span>(<span class="hljs-string">&apos;url&apos;</span>);
+</code></pre>
+<ul>
+<li>Buatlah tiga file <code>home.php</code>, <code>about.php</code> dan <code>contact.php</code> pada views
+<code>Codeigniter</code>.</li>
+<li>Buatlah tiga file controller <code>Home.php</code>, <code>About.php</code> dan <code>Contact.php</code>
+(perhatikan penamaan file, diawali dengan huruf kapital).</li>
+</ul>
+<p>Langkah lebih lanjut anda dapat mengikuti video berikut.</p>
+<div class="noembed-wrapper" data-url="//noembed.com/embed?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DV7e21tuMfZ0">https://www.youtube.com/watch?v=V7e21tuMfZ0</div>
+
+<h2 id="praktikum-controller-2">Praktikum Controller 2</h2>
+<p>Pada praktikum ini membahas tentang pengiriman data dari controller ke view.</p>
+<div class="noembed-wrapper" data-url="//noembed.com/embed?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D6GR1FPrt5lY">https://www.youtube.com/watch?v=6GR1FPrt5lY</div>
 
                                 
                                 </section>
@@ -445,7 +541,7 @@ aplikasi.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Pengantar Model View Controller","level":"1.3","depth":1,"next":{"title":"Pengantar Model View Controller","level":"1.4","depth":1,"path":"03-week.md","ref":"03-week.md","articles":[]},"previous":{"title":"Pengantar dan Pengenalan Web Framework","level":"1.2","depth":1,"path":"01-week.md","ref":"01-week.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["noembed","livereload"],"pluginsConfig":{"noembed":{},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"02-week.md","mtime":"2018-04-11T23:00:29.310Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-11T10:36:43.409Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Pengantar Model View Controller","level":"1.3","depth":1,"next":{"title":"Pengantar Model View Controller","level":"1.4","depth":1,"path":"03-week.md","ref":"03-week.md","articles":[]},"previous":{"title":"Pengantar dan Pengenalan Web Framework","level":"1.2","depth":1,"path":"01-week.md","ref":"01-week.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["noembed"],"pluginsConfig":{"noembed":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"02-week.md","mtime":"2018-04-11T23:03:30.525Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-11T23:03:43.064Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -456,10 +552,6 @@ aplikasi.</p>
     
         
         <script src="gitbook/gitbook-plugin-noembed/scripts.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
         
     
         

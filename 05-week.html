@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>CRUD dan File Upload · GitBook</title>
+        <title>CRUD dan Form Validation · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -163,7 +163,7 @@
                 <a href="05-week.html">
             
                     
-                    CRUD dan File Upload
+                    CRUD dan Form Validation
             
                 </a>
             
@@ -176,7 +176,7 @@
                 <a href="06-week.html">
             
                     
-                    CRUD dan Form Validation
+                    CRUD dan File Upload
             
                 </a>
             
@@ -202,7 +202,7 @@
                 <a href="08-week.html">
             
                     
-                    CRUD dengan Filtering Page Intation
+                    CRUD dengan Filtering Pagination 
             
                 </a>
             
@@ -370,7 +370,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >CRUD dan File Upload</a>
+        <a href="." >CRUD dan Form Validation</a>
     </h1>
 </div>
 
@@ -385,7 +385,452 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="crud-dan-form-validation">CRUD dan Form Validation</h1>
+<p>Dalam pertemuan sebelumnya, telah dikenalkan dengan paradigma MVC, untuk
+pembuatan CRUD pada modul ini akan menerapkan konsep tersebut.</p>
+<h2 id="percobaan">Percobaan</h2>
+<p>Pada percobaan ini, akan dibuat proses CRUD untuk entitas pegawai. Siapkan
+struktur direktori dan database berikut pada project codeigniter anda!</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-string">`pegawai`</span> (
+  <span class="hljs-string">`id`</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> AUTO_INCREMENT,
+  <span class="hljs-string">`nama`</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">DEFAULT</span> <span class="hljs-literal">NULL</span>,
+  PRIMARY <span class="hljs-keyword">KEY</span> (<span class="hljs-string">`id`</span>)
+)
+</code></pre>
+<pre><code>codeigniter
+&#x251C;&#x2500;&#x2500; application
+&#x2502;   &#x251C;&#x2500;&#x2500; config
+&#x2502;   &#x251C;&#x2500;&#x2500; controllers
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; Pegawai.php
+&#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; index.html
+&#x2502;   &#x251C;&#x2500;&#x2500; models
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; Pegawai_model.php
+&#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; index.html
+&#x2502;   &#x2514;&#x2500;&#x2500; views
+&#x2502;       &#x251C;&#x2500;&#x2500; index.html
+&#x2502;       &#x251C;&#x2500;&#x2500; layouts
+&#x2502;       &#x2502;   &#x251C;&#x2500;&#x2500; base_end.php
+&#x2502;       &#x2502;   &#x251C;&#x2500;&#x2500; base_start.php
+&#x2502;       &#x2502;   &#x251C;&#x2500;&#x2500; footer.php
+&#x2502;       &#x2502;   &#x2514;&#x2500;&#x2500; header.php
+&#x2502;       &#x2514;&#x2500;&#x2500; pegawai
+&#x2502;           &#x251C;&#x2500;&#x2500; create.php
+&#x2502;           &#x251C;&#x2500;&#x2500; edit.php
+&#x2502;           &#x251C;&#x2500;&#x2500; index.php
+&#x2502;           &#x2514;&#x2500;&#x2500; show.php
+</code></pre><p>Dalam percobaan CRUD akan banyak menggunakan template view yang hampir serupa,
+sehingga diperlukan template layouts yang bisa digunakan berulang. Perhatikan
+pada direktori <code>application/views/layouts</code>.</p>
+<pre><code class="lang-php">&lt;!-- base_start.php --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=<span class="hljs-string">&quot;en&quot;</span>&gt;
+&lt;head&gt;
+  &lt;meta charset=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;
+  &lt;meta http-equiv=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> content=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;
+  &lt;meta name=<span class="hljs-string">&quot;viewport&quot;</span> content=<span class="hljs-string">&quot;width=device-width, initial-scale=1&quot;</span>&gt;
+  &lt;title&gt;<span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">isset</span>($title) ?: $title = <span class="hljs-string">&apos;Pemrograman Web Berbasis Framework&apos;</span>; <span class="hljs-keyword">echo</span> $title <span class="hljs-meta">?&gt;</span>&lt;/title&gt;
+  &lt;link href=<span class="hljs-string">&quot;&lt;?php echo base_url(&apos;assets/css/bootstrap.min.css&apos;) ?&gt;&quot;</span> rel=<span class="hljs-string">&quot;stylesheet&quot;</span>&gt;
+  &lt;style&gt;
+    .footer {
+      position: absolute;
+      bottom: <span class="hljs-number">0</span>;
+      width: <span class="hljs-number">100</span>%;
+      height: <span class="hljs-number">60</span>px;
+      background-color: <span class="hljs-comment">#f5f5f5;</span>
+    }
+
+    .container .text-footer {
+      margin: <span class="hljs-number">20</span>px <span class="hljs-number">0</span>;
+    }
+
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  <span class="hljs-meta">&lt;?php</span> $this-&gt;load-&gt;view(<span class="hljs-string">&apos;layouts/header&apos;</span>) <span class="hljs-meta">?&gt;</span>
+</code></pre>
+<pre><code class="lang-php">&lt;!-- base_end.php --&gt;
+    <span class="hljs-meta">&lt;?php</span> $this-&gt;load-&gt;view(<span class="hljs-string">&apos;layouts/footer&apos;</span>) <span class="hljs-meta">?&gt;</span>
+    &lt;script src=<span class="hljs-string">&quot;&lt;?php echo base_url(&apos;assets/js/jquery.min.js&apos;) ?&gt;&quot;</span>&gt;&lt;/script&gt;
+    &lt;script src=<span class="hljs-string">&quot;&lt;?php echo base_url(&apos;assets/js/bootstrap.min.js&apos;) ?&gt;&quot;</span>&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<pre><code class="lang-php">&lt;!-- header.php --&gt;
+&lt;nav class=&quot;navbar navbar-default&quot; role=&quot;navigation&quot;&gt;
+  &lt;!-- Brand and toggle get grouped for better mobile display --&gt;
+  &lt;div class=&quot;navbar-header&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;.navbar-ex1-collapse&quot;&gt;
+      &lt;span class=&quot;sr-only&quot;&gt;Toggle navigation&lt;/span&gt;
+      &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;a class=&quot;navbar-brand&quot; href=&quot;&lt;?php echo base_url() ?&gt;&quot;&gt;
+      Pemrograman Web Framework
+    &lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Collect the nav links, forms, and other content for toggling --&gt;
+  &lt;div class=&quot;collapse navbar-collapse navbar-ex1-collapse&quot;&gt;
+    &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+      &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;&lt;?php echo site_url(&apos;pegawai/&apos;) ?&gt;&quot;&gt;Pegawai&lt;/a&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;&lt;!-- /.navbar-collapse --&gt;
+&lt;/nav&gt;
+</code></pre>
+<pre><code class="lang-php">&lt;!-- footer.php --&gt;
+&lt;footer class=&quot;footer&quot;&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;p class=&quot;text-footer&quot;&gt;
+      Hak Cipta &lt;a href=&quot;https://github.com/dosenhub&quot;&gt;DosenHub&lt;/a&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;
+</code></pre>
+<ul>
+<li>Buat pegawai model untuk membagi logic aplikasi dari dan ke database.</li>
+</ul>
+<pre><code class="lang-php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-comment">// models/Pegawai_model.php</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pegawai_model</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CI_Model</span> </span>{
+
+}
+</code></pre>
+<ul>
+<li>Buat controller pegawai</li>
+</ul>
+<pre><code class="lang-php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-comment">// controllers/Pegawai.php</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pegawai</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CI_Controller</span> </span>{
+
+}
+</code></pre>
+<ul>
+<li>Pada controller, anda dapat memanfaatkan constructor untuk load <code>helper</code>,
+<code>library</code> atau <code>model</code>. Anda juga dapat mendefinisikannya di <code>config/autoload.php</code>
+sehingga dapat terload secara otomatis.</li>
+</ul>
+<pre><code class="lang-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span>
+</span>{
+  <span class="hljs-keyword">parent</span>::__construct();
+  $this-&gt;load-&gt;helper(<span class="hljs-string">&apos;url&apos;</span>, <span class="hljs-string">&apos;form&apos;</span>);
+  $this-&gt;load-&gt;library(<span class="hljs-string">&apos;form_validation&apos;</span>);
+  $this-&gt;load-&gt;model(<span class="hljs-string">&apos;Pegawai_model&apos;</span>);
+}
+</code></pre>
+<blockquote>
+<p>Silahkan baca dokumentasi mengenai <a href="https://www.codeigniter.com/user_guide/helpers/url_helper.html" target="_blank">url</a>, <a href="https://www.codeigniter.com/user_guide/helpers/form_helper.html" target="_blank">form</a>, <a href="https://www.codeigniter.com/user_guide/libraries/form_validation.html" target="_blank">form_validation</a>.</p>
+</blockquote>
+<ul>
+<li>Untuk menampilkan data yang telah tersimpan di database, buatlah fungsi list
+di dalam model pegawai.</li>
+</ul>
+<pre><code class="lang-php"><span class="hljs-comment">// models/Pegawai_model.php</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">list</span><span class="hljs-params">()</span>
+</span>{
+  $query = $this-&gt;db-&gt;get(<span class="hljs-string">&apos;pegawai&apos;</span>);
+  <span class="hljs-keyword">return</span> $query-&gt;result();
+}
+</code></pre>
+<ul>
+<li>Pada controller pegawai, implementasikan untuk memanggil list data.</li>
+</ul>
+<pre><code class="lang-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">()</span>
+</span>{
+  $pegawai = $this-&gt;pegawai_model
+    -&gt;list();
+  $data = [
+    <span class="hljs-string">&apos;title&apos;</span> =&gt; <span class="hljs-string">&apos;Pemrograman Web Framework :: Data Pegawai&apos;</span>,
+    <span class="hljs-string">&apos;pegawai&apos;</span> =&gt; $pegawai
+  ];
+  $this-&gt;load-&gt;view(<span class="hljs-string">&apos;pegawai/index&apos;</span>, $data);
+}
+</code></pre>
+<ul>
+<li>Pada view <code>pegawai/index.php</code> buatlah tabel yang menampilkan data dari
+database.</li>
+</ul>
+<pre><code class="lang-php">&lt;?php $this-&gt;load-&gt;view(&apos;layouts/base_start&apos;) ?&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+  &lt;legend&gt;Daftar Pegawai&lt;/legend&gt;
+  &lt;div class=&quot;col-xs-12 col-sm-12 col-md-12&quot;&gt;
+    &lt;table class=&quot;table table-striped&quot;&gt;
+      &lt;thead&gt;
+        &lt;th&gt;No&lt;/th&gt;
+        &lt;th&gt;Nama&lt;/th&gt;
+        &lt;th&gt;
+          &lt;a class=&quot;btn btn-primary&quot; href=&quot;&lt;?php echo site_url(&apos;pegawai/create&apos;) ?&gt;&quot;&gt;
+            Tambah
+          &lt;/a&gt;
+        &lt;/th&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;?php $number = 1; foreach($pegawai as $row) { ?&gt;
+        &lt;tr&gt;
+          &lt;td&gt;
+            &lt;a href=&quot;&lt;?php echo site_url(&apos;pegawai/show/&apos;.$row-&gt;id) ?&gt;&quot;&gt;
+              &lt;?php echo $number++ ?&gt;
+            &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td&gt;
+            &lt;a href=&quot;&lt;?php echo site_url(&apos;pegawai/show/&apos;.$row-&gt;id) ?&gt;&quot;&gt;
+              &lt;?php echo $row-&gt;nama ?&gt;
+            &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td&gt;
+            &lt;?php echo form_open(&apos;pegawai/destroy/&apos;.$row-&gt;id)  ?&gt;
+            &lt;a class=&quot;btn btn-info&quot; href=&quot;&lt;?php echo site_url(&apos;pegawai/edit/&apos;.$row-&gt;id) ?&gt;&quot;&gt;
+              Ubah
+            &lt;/a&gt;
+            &lt;button type=&quot;submit&quot; class=&quot;btn btn-danger&quot; onclick=&quot;return confirm(&apos;Apakah anda yakin?&apos;)&quot;&gt;Hapus&lt;/button&gt;
+            &lt;?php echo form_close() ?&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;?php } ?&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;?php $this-&gt;load-&gt;view(&apos;layouts/base_end&apos;) ?&gt;
+</code></pre>
+<ul>
+<li>Buatlah tampilan untuk form penambahan data pegawai</li>
+</ul>
+<pre><code class="lang-php">&lt;?php $this-&gt;load-&gt;view(&apos;layouts/base_start&apos;) ?&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+  &lt;legend&gt;Tambah Data Pegawai&lt;/legend&gt;
+  &lt;div class=&quot;col-xs-12 col-sm-12 col-md-12&quot;&gt;
+  &lt;?php echo form_open(&apos;pegawai/store&apos;); ?&gt;
+
+    &lt;div class=&quot;form-group&quot;&gt;
+      &lt;label for=&quot;Nama&quot;&gt;Nama&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;nama&quot; name=&quot;nama&quot; placeholder=&quot;Masukkan Nama&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;a class=&quot;btn btn-info&quot; href=&quot;&lt;?php echo site_url(&apos;pegawai/&apos;) ?&gt;&quot;&gt;Kembali&lt;/a&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;OK&lt;/button&gt;
+  &lt;?php echo form_close() ?&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;?php $this-&gt;load-&gt;view(&apos;layouts/base_end&apos;) ?&gt;
+</code></pre>
+<ul>
+<li>Pada controller, load tampilan view tersebut seperti berikut.</li>
+</ul>
+<pre><code class="lang-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">()</span>
+</span>{
+  $this-&gt;load-&gt;view(<span class="hljs-string">&apos;pegawai/create&apos;</span>);
+}
+</code></pre>
+<ul>
+<li>Coba akses form tambah pegawai melalui tombol tambah, sehingga muncul tampilan
+sebagai berikut.</li>
+</ul>
+<p><img src="images/05/add-pegawai.png" alt="Tambah Pegawai"></p>
+<ul>
+<li>Untuk memasukkan data, dibutuhkan fungsi penambahan data pada model pegawai.</li>
+</ul>
+<pre><code class="lang-php"><span class="hljs-comment">// models/Pegawai_model.php</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insert</span><span class="hljs-params">($data = [])</span>
+</span>{
+  $result = $this-&gt;db-&gt;insert(<span class="hljs-string">&apos;pegawai&apos;</span>, $data);
+  <span class="hljs-keyword">return</span> $result;
+}
+</code></pre>
+<ul>
+<li>Panggil fungsi penambahan data pada model di controller pegawai.</li>
+</ul>
+<pre><code class="lang-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span><span class="hljs-params">()</span>
+</span>{
+  $data = [<span class="hljs-string">&apos;nama&apos;</span> =&gt; $this-&gt;input-&gt;post(<span class="hljs-string">&apos;nama&apos;</span>)];
+  $rules = [
+    [
+      <span class="hljs-string">&apos;field&apos;</span> =&gt; <span class="hljs-string">&apos;nama&apos;</span>,
+      <span class="hljs-string">&apos;label&apos;</span> =&gt; <span class="hljs-string">&apos;Nama&apos;</span>,
+      <span class="hljs-string">&apos;rules&apos;</span> =&gt; <span class="hljs-string">&apos;trim|required&apos;</span>
+    ]
+  ];
+  <span class="hljs-comment">// Untuk rule sederhana bisa dengan menggunakan</span>
+  <span class="hljs-comment">// $this-&gt;form_validation-&gt;set_rules(&apos;nama&apos;, &apos;Nama&apos;, &apos;trim|required&apos;);</span>
+  $this-&gt;form_validation-&gt;set_rules($rules);
+
+  <span class="hljs-keyword">if</span> ($this-&gt;form_validation-&gt;run()) {
+    $result = $this-&gt;pegawai_model-&gt;insert($data);
+    <span class="hljs-keyword">if</span> ($result) {
+      redirect(<span class="hljs-string">&apos;pegawai&apos;</span>);
+    }
+  } <span class="hljs-keyword">else</span> {
+    redirect(<span class="hljs-string">&apos;pegawai/create&apos;</span>);
+  }
+}
+</code></pre>
+<ul>
+<li><p>Pada proses ini, dibutuhkan validasi data yang dikirimkan ke controller. Untuk
+proses ini dapat memanfaatkan library CI <code>form_validation</code>.</p>
+</li>
+<li><p>Jika proses penambahan berhasil, tampilan akan diarahkan ke url <code>pegawai</code>
+dengan <code>redirect</code></p>
+</li>
+<li><p>Jika ada kesalahan dalam validasi data, akan dikembalikan ke halaman tambah
+pegawai <code>pegawai/create</code>.</p>
+</li>
+<li><p>Untuk melihat detil data yang telah dimasukkan, implementasikan tampilan untuk
+view data berikut.</p>
+</li>
+</ul>
+<pre><code class="lang-php">&lt;?php $this-&gt;load-&gt;view(&apos;layouts/base_start&apos;) ?&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+  &lt;legend&gt;Lihat Pegawai&lt;/legend&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+      &lt;label for=&quot;nama&quot;&gt;Nama&lt;/label&gt;
+      &lt;p&gt;&lt;?php echo $data-&gt;nama ?&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;a class=&quot;btn btn-info&quot; href=&quot;&lt;?php echo site_url(&apos;pegawai/&apos;) ?&gt;&quot;&gt;Kembali&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;?php $this-&gt;load-&gt;view(&apos;layouts/base_end&apos;) ?&gt;
+</code></pre>
+<ul>
+<li>Load tampilan pada controller</li>
+</ul>
+<pre><code class="lang-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span><span class="hljs-params">($id)</span>
+</span>{
+  $pegawai = $this-&gt;pegawai_model-&gt;show($id);
+  $data = [
+    <span class="hljs-string">&apos;data&apos;</span> =&gt; $pegawai
+  ];
+  $this-&gt;load-&gt;view(<span class="hljs-string">&apos;pegawai/show&apos;</span>, $data);
+}
+</code></pre>
+<ul>
+<li>Data yang telah dimasukkan dapat dilihat melalui pola url <code>pegawai/show/id</code>
+(id merupakan nilai id pada database).</li>
+</ul>
+<h1 id="tugas-praktikum">Tugas Praktikum</h1>
+<ul>
+<li>Dengan menggunakan pendekatan yang sama, lengkapi implementasi project untuk
+fitur <code>update</code> dan <code>delete</code> sehingga menjadi aplikasi CRUD yang utuh. Untuk view
+tampilan, anda dapat menggunakan template yang ada pada bagian <strong>Lampiran</strong></li>
+</ul>
+<h1 id="lampiran">Lampiran</h1>
+<pre><code class="lang-php">&lt;!-- pegawai/edit.php --&gt;
+
+&lt;?php $this-&gt;load-&gt;view(&apos;layouts/base_start&apos;) ?&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+  &lt;legend&gt;Tambah Data Pegawai&lt;/legend&gt;
+  &lt;div class=&quot;col-xs-12 col-sm-12 col-md-12&quot;&gt;
+  &lt;?php echo form_open(&apos;pegawai/update/&apos;.$data-&gt;id); ?&gt;
+    &lt;?php echo form_hidden(&apos;id&apos;, $data-&gt;id) ?&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+      &lt;label for=&quot;Nama&quot;&gt;Nama&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;nama&quot; name=&quot;nama&quot; placeholder=&quot;Masukkan Nama&quot; value=&quot;&lt;?php echo $data-&gt;nama ?&gt;&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;a class=&quot;btn btn-info&quot; href=&quot;&lt;?php echo site_url(&apos;pegawai/&apos;) ?&gt;&quot;&gt;Kembali&lt;/a&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;OK&lt;/button&gt;
+  &lt;?php echo form_close(); ?&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;?php $this-&gt;load-&gt;view(&apos;layouts/base_end&apos;) ?&gt;
+</code></pre>
+<pre><code class="lang-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pegawai_model</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CI_Model</span> </span>{
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">list</span><span class="hljs-params">()</span>
+  </span>{
+    <span class="hljs-comment">// ...</span>
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insert</span><span class="hljs-params">($data = [])</span>
+  </span>{
+    <span class="hljs-comment">// ...</span>
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span><span class="hljs-params">($id)</span>
+  </span>{
+    <span class="hljs-comment">// ...</span>
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span><span class="hljs-params">($id, $data = [])</span>
+  </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> set data yang akan di update</span>
+    <span class="hljs-comment">// https://www.codeigniter.com/userguide3/database/query_builder.html#updating-data</span>
+  }
+
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delete</span><span class="hljs-params">($id)</span>
+  </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> tambahkan logic penghapusan data</span>
+  }
+
+}
+</code></pre>
+<pre><code class="lang-php"><span class="hljs-meta">&lt;?php</span>
+
+defined(<span class="hljs-string">&apos;BASEPATH&apos;</span>) <span class="hljs-keyword">OR</span> <span class="hljs-keyword">exit</span>(<span class="hljs-string">&apos;No direct script access allowed&apos;</span>);
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pegawai</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CI_Controller</span> </span>{
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span>
+    </span>{
+      <span class="hljs-comment">// ...</span>
+    }
+
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">()</span>
+    </span>{
+      <span class="hljs-comment">// ...</span>
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">()</span>
+    </span>{
+      <span class="hljs-comment">// ...</span>
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span><span class="hljs-params">()</span>
+    </span>{
+      <span class="hljs-comment">// ...</span>
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span><span class="hljs-params">($id)</span>
+    </span>{
+      <span class="hljs-comment">// ...</span>
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">edit</span><span class="hljs-params">($id)</span>
+    </span>{
+      <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> tampilkan view edit data</span>
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span><span class="hljs-params">($id)</span>
+    </span>{
+      <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> implementasi update data berdasarkan $id</span>
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroy</span><span class="hljs-params">($id)</span>
+    </span>{
+      <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> implementasi penghapusan data berdasarkan $id</span>
+    }
+
+}
+
+<span class="hljs-comment">/* End of file Pegawai.php */</span>
+</code></pre>
+
                                 
                                 </section>
                             
@@ -417,7 +862,7 @@
                 </a>
                 
                 
-                <a href="06-week.html" class="navigation navigation-next " aria-label="Next page: CRUD dan Form Validation">
+                <a href="06-week.html" class="navigation navigation-next " aria-label="Next page: CRUD dan File Upload">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -428,7 +873,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"CRUD dan File Upload","level":"1.6","depth":1,"next":{"title":"CRUD dan Form Validation","level":"1.7","depth":1,"path":"06-week.md","ref":"06-week.md","articles":[]},"previous":{"title":"Quiz","level":"1.5","depth":1,"path":"04-week.md","ref":"04-week.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["noembed","livereload"],"pluginsConfig":{"noembed":{},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"05-week.md","mtime":"2018-04-11T23:00:29.315Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-11T10:36:43.409Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"CRUD dan Form Validation","level":"1.6","depth":1,"next":{"title":"CRUD dan File Upload","level":"1.7","depth":1,"path":"06-week.md","ref":"06-week.md","articles":[]},"previous":{"title":"Quiz","level":"1.5","depth":1,"path":"04-week.md","ref":"04-week.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["noembed"],"pluginsConfig":{"noembed":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"05-week.md","mtime":"2018-04-11T23:03:30.528Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-11T23:03:43.064Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -439,10 +884,6 @@
     
         
         <script src="gitbook/gitbook-plugin-noembed/scripts.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
         
     
         
