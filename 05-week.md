@@ -1,4 +1,4 @@
-# CRUD dan File Upload
+# CRUD dan Form Validation
 
 Dalam pertemuan sebelumnya, telah dikenalkan dengan paradigma MVC, untuk
 pembuatan CRUD pada modul ini akan menerapkan konsep tersebut.
@@ -320,3 +320,159 @@ dengan `redirect`
 
 * Jika ada kesalahan dalam validasi data, akan dikembalikan ke halaman tambah
 pegawai `pegawai/create`.
+
+* Untuk melihat detil data yang telah dimasukkan, implementasikan tampilan untuk
+view data berikut.
+
+```php
+<?php $this->load->view('layouts/base_start') ?>
+
+<div class="container">
+  <legend>Lihat Pegawai</legend>
+  <div class="content">
+    <div class="form-group">
+      <label for="nama">Nama</label>
+      <p><?php echo $data->nama ?></p>
+    </div>
+    <a class="btn btn-info" href="<?php echo site_url('pegawai/') ?>">Kembali</a>
+  </div>
+</div>
+
+<?php $this->load->view('layouts/base_end') ?>
+```
+
+* Load tampilan pada controller
+
+```php
+public function show($id)
+{
+  $pegawai = $this->pegawai_model->show($id);
+  $data = [
+    'data' => $pegawai
+  ];
+  $this->load->view('pegawai/show', $data);
+}
+```
+
+* Data yang telah dimasukkan dapat dilihat melalui pola url `pegawai/show/id`
+(id merupakan nilai id pada database).
+
+# Tugas Praktikum
+
+* Dengan menggunakan pendekatan yang sama, lengkapi implementasi project untuk
+fitur `update` dan `delete` sehingga menjadi aplikasi CRUD yang utuh. Untuk view
+tampilan, anda dapat menggunakan template yang ada pada bagian **Lampiran**
+
+# Lampiran
+
+```php
+<!-- pegawai/edit.php -->
+
+<?php $this->load->view('layouts/base_start') ?>
+
+<div class="container">
+  <legend>Tambah Data Pegawai</legend>
+  <div class="col-xs-12 col-sm-12 col-md-12">
+  <?php echo form_open('pegawai/update/'.$data->id); ?>
+    <?php echo form_hidden('id', $data->id) ?>
+    <div class="form-group">
+      <label for="Nama">Nama</label>
+      <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama" value="<?php echo $data->nama ?>">
+    </div>
+
+    <a class="btn btn-info" href="<?php echo site_url('pegawai/') ?>">Kembali</a>
+    <button type="submit" class="btn btn-primary">OK</button>
+  <?php echo form_close(); ?>
+  </div>
+</div>
+
+<?php $this->load->view('layouts/base_end') ?>
+```
+
+```php
+<?php
+
+class Pegawai_model extends CI_Model {
+
+  public function list()
+  {
+    // ...
+  }
+
+  public function insert($data = [])
+  {
+    // ...
+  }
+
+  public function show($id)
+  {
+    // ...
+  }
+
+  public function update($id, $data = [])
+  {
+    // TODO: set data yang akan di update
+    // https://www.codeigniter.com/userguide3/database/query_builder.html#updating-data
+  }
+
+
+  public function delete($id)
+  {
+    // TODO: tambahkan logic penghapusan data
+  }
+
+}
+```
+
+```php
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Pegawai extends CI_Controller {
+
+    public function __construct()
+    {
+      // ...
+    }
+
+
+    public function index()
+    {
+      // ...
+    }
+
+    public function create()
+    {
+      // ...
+    }
+
+    public function store()
+    {
+      // ...
+    }
+
+    public function show($id)
+    {
+      // ...
+    }
+
+    public function edit($id)
+    {
+      // TODO: tampilkan view edit data
+    }
+
+    public function update($id)
+    {
+      // TODO: implementasi update data berdasarkan $id
+    }
+
+    public function destroy($id)
+    {
+      // TODO: implementasi penghapusan data berdasarkan $id
+    }
+
+}
+
+/* End of file Pegawai.php */
+```
