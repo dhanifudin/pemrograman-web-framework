@@ -341,6 +341,18 @@ view data berikut.
 <?php $this->load->view('layouts/base_end') ?>
 ```
 
+* Untuk mengambil data berdasarkan id, tambahkan fungsi berikut pada model
+pegawai
+
+```php
+public function show($id)
+{
+  $this->db->where('id', $id);
+  $query = $this->db->get('pegawai');
+  return $query->row();
+}
+```
+
 * Load tampilan pada controller
 
 ```php
