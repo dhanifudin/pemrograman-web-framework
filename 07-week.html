@@ -385,7 +385,76 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="crud-dengan-datagrid">CRUD dengan Datagrid</h1>
+<p>Pada percobaan kali ini akan dipelajari bagaimana cara menambahkan grid (berbasis javascript) ke project codeigniter. Percobaan kali ini akan menggunakan library js-grid yang dapat di download melalui url : <a href="http://js-grid.com" target="_blank">http://js-grid.com</a></p>
+<h2 id="percobaan-1--installasi-codeigniter">Percobaan 1 : Installasi Codeigniter</h2>
+<ol>
+<li>Mulailah dengan sebuah installasi codeigniter baru.</li>
+<li>Lakukan konfigurasi agar dapat terkoneksi ke database <code>config/database.php</code> dan autoload library <code>config/autoload.php</code> yang dibutuhkan untuk proses CRUD sesuai dengan modul pada bab sebelumnya.</li>
+<li>Buatlah sebuah controller dengan nama Home.php, view dengan nama HomeView.php.</li>
+<li>Buatlah sebuah function di controller Home.php dengan nama index() yang di dalam function tersebut melakukan load view HomeView.php.</li>
+<li>Pada file HomeView.php tambahkan sebuah tulisan sederhana &quot;Home View&quot;</li>
+</ol>
+<p>Jika langkah 1 - 5 dilakukan dengan benar maka akan muncul tampilan seperti ini jika anda membuka url <code>/index.php/home</code></p>
+<p><img src="images/07/hasil1-5.png" alt="Hasil Langkah Percobaan 1 - 5"></p>
+<h2 id="percobaan-2--installasi-js-grid">Percobaan 2 : Installasi Js Grid</h2>
+<ol>
+<li>Buatlah sebuah folder asset yang didalamnya terdapat folder jquery yang memuat file javascript untuk jquery latest file jquery dapat di download melalui url berikut ini : <a href="https://code.jquery.com/jquery-3.3.1.min.js" target="_blank">https://code.jquery.com/jquery-3.3.1.min.js</a></li>
+<li>Selain itu buatlah folder jsgrid yang memuat file library jsgrid yang dapat di download melalui url berikut ini : <a href="https://github.com/tabalinas/jsgrid/releases/download/v1.5.3/jsgrid-1.5.3.zip" target="_blank">https://github.com/tabalinas/jsgrid/releases/download/v1.5.3/jsgrid-1.5.3.zip</a></li>
+<li><p>Pada HomeView.php tambahkan sebuah template html5 standar dan beri title Installasi JsGrid.</p>
+<p><img src="images/07/htmlJsGrid.png" alt=""></p>
+</li>
+<li><p>Pada halaman HomeView.php ini tambahkan juga file css yang dibutuhkan untuk menjalankan jsgrid antara lain jsgrid.min.css jsgrid-theme.min.css</p>
+</li>
+<li>Untuk file js nya tambahkan file jquery.min.js dan jsgrid.min.js
+<img src="images/07/cssJsGrid.png" alt=""></li>
+<li>pada bagian body tambahkan tag div dengan id jsGrid.
+<img src="images/07/jsgridbody.png" alt=""></li>
+<li>Tambahkan script javascript berikut untuk memuat data grid</li>
+</ol>
+<pre><code class="lang-javascript">    &lt;script&gt;
+        <span class="hljs-keyword">var</span> clients = [
+            { <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;Otto Clay&quot;</span>, <span class="hljs-string">&quot;Age&quot;</span>: <span class="hljs-number">25</span>, <span class="hljs-string">&quot;Country&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;Address&quot;</span>: <span class="hljs-string">&quot;Ap #897-1459 Quam Avenue&quot;</span>, <span class="hljs-string">&quot;Married&quot;</span>: <span class="hljs-literal">false</span> },
+            { <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;Connor Johnston&quot;</span>, <span class="hljs-string">&quot;Age&quot;</span>: <span class="hljs-number">45</span>, <span class="hljs-string">&quot;Country&quot;</span>: <span class="hljs-number">2</span>, <span class="hljs-string">&quot;Address&quot;</span>: <span class="hljs-string">&quot;Ap #370-4647 Dis Av.&quot;</span>, <span class="hljs-string">&quot;Married&quot;</span>: <span class="hljs-literal">true</span> },
+            { <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;Lacey Hess&quot;</span>, <span class="hljs-string">&quot;Age&quot;</span>: <span class="hljs-number">29</span>, <span class="hljs-string">&quot;Country&quot;</span>: <span class="hljs-number">3</span>, <span class="hljs-string">&quot;Address&quot;</span>: <span class="hljs-string">&quot;Ap #365-8835 Integer St.&quot;</span>, <span class="hljs-string">&quot;Married&quot;</span>: <span class="hljs-literal">false</span> },
+            { <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;Timothy Henson&quot;</span>, <span class="hljs-string">&quot;Age&quot;</span>: <span class="hljs-number">56</span>, <span class="hljs-string">&quot;Country&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;Address&quot;</span>: <span class="hljs-string">&quot;911-5143 Luctus Ave&quot;</span>, <span class="hljs-string">&quot;Married&quot;</span>: <span class="hljs-literal">true</span> },
+            { <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;Ramona Benton&quot;</span>, <span class="hljs-string">&quot;Age&quot;</span>: <span class="hljs-number">32</span>, <span class="hljs-string">&quot;Country&quot;</span>: <span class="hljs-number">3</span>, <span class="hljs-string">&quot;Address&quot;</span>: <span class="hljs-string">&quot;Ap #614-689 Vehicula Street&quot;</span>, <span class="hljs-string">&quot;Married&quot;</span>: <span class="hljs-literal">false</span> }
+        ];
+
+        <span class="hljs-keyword">var</span> countries = [
+            { Name: <span class="hljs-string">&quot;&quot;</span>, Id: <span class="hljs-number">0</span> },
+            { Name: <span class="hljs-string">&quot;United States&quot;</span>, Id: <span class="hljs-number">1</span> },
+            { Name: <span class="hljs-string">&quot;Canada&quot;</span>, Id: <span class="hljs-number">2</span> },
+            { Name: <span class="hljs-string">&quot;United Kingdom&quot;</span>, Id: <span class="hljs-number">3</span> }
+        ];
+
+        $(<span class="hljs-string">&quot;#jsGrid&quot;</span>).jsGrid({
+            width: <span class="hljs-string">&quot;100%&quot;</span>,
+            height: <span class="hljs-string">&quot;400px&quot;</span>,
+
+            inserting: <span class="hljs-literal">true</span>,
+            editing: <span class="hljs-literal">true</span>,
+            sorting: <span class="hljs-literal">true</span>,
+            paging: <span class="hljs-literal">true</span>,
+
+            data: clients,
+
+            fields: [
+                { name: <span class="hljs-string">&quot;Name&quot;</span>, type: <span class="hljs-string">&quot;text&quot;</span>, width: <span class="hljs-number">150</span>, validate: <span class="hljs-string">&quot;required&quot;</span> },
+                { name: <span class="hljs-string">&quot;Age&quot;</span>, type: <span class="hljs-string">&quot;number&quot;</span>, width: <span class="hljs-number">50</span> },
+                { name: <span class="hljs-string">&quot;Address&quot;</span>, type: <span class="hljs-string">&quot;text&quot;</span>, width: <span class="hljs-number">200</span> },
+                { name: <span class="hljs-string">&quot;Country&quot;</span>, type: <span class="hljs-string">&quot;select&quot;</span>, items: countries, valueField: <span class="hljs-string">&quot;Id&quot;</span>, textField: <span class="hljs-string">&quot;Name&quot;</span> },
+                { name: <span class="hljs-string">&quot;Married&quot;</span>, type: <span class="hljs-string">&quot;checkbox&quot;</span>, title: <span class="hljs-string">&quot;Is Married&quot;</span>, sorting: <span class="hljs-literal">false</span> },
+                { type: <span class="hljs-string">&quot;control&quot;</span> }
+            ]
+        });
+    <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+</code></pre>
+<p>Berikut ini tampilan jika langkah 1 - 8 dikerjakan dengan benar :
+<img src="images/07/result.png" alt=""></p>
+<h2 id="pengetahuan-tambahan">Pengetahuan Tambahan</h2>
+<p>Untuk melihat bagaimana jsGrid bekerja dapat melihat demo jsGrid untuk PHP pada url github berikut ini : <a href="https://github.com/tabalinas/jsgrid-php" target="_blank">https://github.com/tabalinas/jsgrid-php</a></p>
+
                                 
                                 </section>
                             
@@ -428,7 +497,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"CRUD dengan Datagrid","level":"1.8","depth":1,"next":{"title":"CRUD dengan Filtering Pagination ","level":"1.9","depth":1,"path":"08-week.md","ref":"08-week.md","articles":[]},"previous":{"title":"CRUD dan File Upload","level":"1.7","depth":1,"path":"06-week.md","ref":"06-week.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["noembed"],"pluginsConfig":{"noembed":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"07-week.md","mtime":"2018-03-16T08:34:42.084Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-13T01:06:25.799Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"CRUD dengan Datagrid","level":"1.8","depth":1,"next":{"title":"CRUD dengan Filtering Pagination ","level":"1.9","depth":1,"path":"08-week.md","ref":"08-week.md","articles":[]},"previous":{"title":"CRUD dan File Upload","level":"1.7","depth":1,"path":"06-week.md","ref":"06-week.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["noembed"],"pluginsConfig":{"noembed":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"07-week.md","mtime":"2018-04-26T11:39:12.210Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-26T11:40:52.747Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
